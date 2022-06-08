@@ -77,7 +77,6 @@ function popular(popmovie) {
     const input = document.querySelector('input')
     btn_seach.addEventListener('click', () => {
         const title = input.value;
-        rating.innerHTML = "";
         container.innerHTML = "";
         popular_films.innerHTML = "";
     fetch(`${API + title + Part}`)
@@ -236,10 +235,5 @@ function top_rated (rated_movie) {
     return rating_Movie;    
 }
 
-let menuBtn = document.querySelector('.menu-btn');
-let menu = document.querySelector('.menu');
-let logo = document.querySelector('.header_logo');
-menuBtn.addEventListener('click', function(){
-    menu.classList.toggle('active');
-    logo.classList.toggle('active');
-})
+
+
