@@ -8,16 +8,23 @@
     <link rel="icon" href="../image/iconMovie.png">
     <link rel="stylesheet" href="../css/reset.css">
     <link rel="stylesheet" href="../css/index.css">
+    <link rel="stylesheet" href="../css/hide.css">
     <title>MoviesPassion</title>
 </head>
 <body>
     <header class="header">
+        <button class="btn-toggle" id="btn_toggle">theme switcher</button>
         <div class="logo">
             <div>
                 <h1><a href="../index.html">MoviesPassion</a></h1>
                 <h2>Cinema is our passion!</h2>
             </div>
-            <img class="header_logo" src="../image/movie-logo.jpg" alt="logo-movie">
+            <img class="header_logo" src="../image/movie-logo.svg" alt="logo-movie">
+        </div>
+        <div class="menu-btn">
+            <span></span>
+            <span></span>
+            <span></span>
         </div>
             <nav class="navigate">
                 <ul class="menu">
@@ -29,8 +36,53 @@
 				</ul>
             </nav>
     </header>
+<div class="site-content">
 
+    <div class="sidebar_container">
+            
+        <div class="sidebar">
+            <h2>Search</h2>
+            <form class="form" method="post" action="#" id="search_form" >
+                <input type="search" name="search_field" placeholder="your request" />
+            </form>
+            <button class="btn"  id="btn_seach">Search</button>
+        </div>
 
+        <div class="sidebar">
+            <h2>Entrance</h2>
+            <form  class="form" method="post" action="#" id="login">
+                <input class="form" type="text" name="login_field" placeholder="login" />
+                <input type="password" name="password_field" placeholder="password" />
+            </form>
+            <button class="btn">Entrance</button>
+            <div class="lables_passreg_text">
+                <span><a href="#">forgot your password?</a></span> <span><a href="#">registration</a></span>
+            </div>
+        </div>
+
+        <div class="sidebar">
+            <h2>Movie Rating</h2>
+            <ul>
+                <li><p>The Shawshank Redemption</p><img src="https://cdn-rating.kinorium.com/101209.png"></li>
+                <li><p>Iron Man</p><img src="https://cdn-rating.kinorium.com/290389.png"></li>
+                <li><p>Gladiator</p><img src="https://cdn-rating.kinorium.com/143897.png"></li>
+                <li><p>TPirates of the Caribbean: The Curse of the Black Pearln</p><img src="https://cdn-rating.kinorium.com/256936.png"></li>
+                <li><p>The Green Mile</p><img src="https://cdn-rating.kinorium.com/109273.png"></li>
+            </ul>
+        </div>
+
+    </div>
+
+    <div class="content">
+        
+        <div class="popular_films">
+        </div>
+        <div class="container">
+            <p class="develop">This page is still under development</p> 
+            <img class= "gif" src="https://cdn.dribbble.com/users/2069402/screenshots/5574718/media/8c5a6ae295d7b6e73adaa9ae68b3b8fd.gif" alt="gif_development">
+        </div>
+    </div>
+    </div>
     <footer class="footer">
         <ul class="menu_footer">
             <li><a href="../index.html">Main</a></li>	
@@ -76,5 +128,6 @@
             </symbol>    
         </svg>
     </footer>
+    <script src="../index.js"></script>
 </body>
 </html>
