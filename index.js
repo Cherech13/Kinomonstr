@@ -74,7 +74,9 @@ function popular(popmovie) {
     }
 
     const container = document.getElementsByClassName('container')[0];
-    const input = document.querySelector('input')
+    const input = document.querySelector('input');
+    
+    
     btn_seach.addEventListener('click', () => {
         const title = input.value;
         container.innerHTML = "";
@@ -82,10 +84,23 @@ function popular(popmovie) {
     fetch(`${API + title + Part}`)
             .then(response => response.json())
         .then(movies => {
+            if (movies.total_results != 0) {
                 movies.results.map(movie => container.appendChild(getMovie(movie)));
                 input.value = ""
+            } else {
+                input.value = ""
+                getError();
+            }
             });
-    })   
+    }) 
+    
+    function getError() {
+        const err = document.createElement('p');
+        err.innerHTML = "Sorry, something went wrong! You entered the wrong movie title, or we just don't have this movie";
+        container.appendChild(err);
+    return err;
+    }
+    
 function getMovie(movie) {
 
         const film = document.createElement('DIV');
@@ -95,14 +110,11 @@ function getMovie(movie) {
         const img = document.createElement('IMG');
         const p_overview = document.createElement('P');
         const p = document.createElement('P');
-        const trailer = document.createElement('button');
-        trailer.classList.add('btn_trailer');
         img.src = partimage + movie.backdrop_path;
         h3.innerHTML =  movie.original_title;
         p.innerHTML = "Vote average - " + movie.vote_average;
-        trailer.innerHTML = "details"
         p_overview.innerHTML = movie.overview;
-    trailer.addEventListener("click", () => {
+        img.addEventListener("click", () => {
         container.innerHTML = "";
         content.innerHTML = "";
         fetch(`${API_treiler + movie.id + Append}`).then(res => res.json())
@@ -144,17 +156,14 @@ function getMovie(movie) {
             description.appendChild(p_description); 
             
         })
-         return content;;   
+         return content; 
         })
 
         film.appendChild(h3);
         film.appendChild(img);
         film.appendChild(p);
         film.appendChild(p_overview);
-        film.appendChild(trailer);
-        
     return film;     
-    
 };
 
 
