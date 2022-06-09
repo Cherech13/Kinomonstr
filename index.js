@@ -1,6 +1,9 @@
 
+
 const API = "https://api.themoviedb.org/4/search/movie?api_key=58a318aadb8df40a52f2d68b7634295d&language=en-US&query=";
-const popular_movies = 'https://api.themoviedb.org/3/movie/popular?api_key=58a318aadb8df40a52f2d68b7634295d&language=en-US&page=1&region=ua'
+const popular_movies = 'https://api.themoviedb.org/3/movie/popular?api_key=58a318aadb8df40a52f2d68b7634295d&language=en-US&page=1&region=ua';
+const popular_movies2 = 'https://api.themoviedb.org/3/movie/popular?api_key=58a318aadb8df40a52f2d68b7634295d&language=en-US&page=2&region=ua';
+const popular_movies3 = 'https://api.themoviedb.org/3/movie/popular?api_key=58a318aadb8df40a52f2d68b7634295d&language=en-US&page=3&region=ua'
 const Part = "&page=1&include_adult=false"
 const partimage = "https://image.tmdb.org/t/p/w500/"
 const API_treiler = "https://api.themoviedb.org/3/movie/"
@@ -11,26 +14,96 @@ const rated = "top_rated?api_key=58a318aadb8df40a52f2d68b7634295d&language=en-US
 const popular_films = document.getElementsByClassName('popular_films')[0];
 const content = document.getElementsByClassName('content')[0];
 const rating = document.getElementsByClassName('rating')[0];
+const movies2 = document.getElementsByClassName('moreMovie')[0];
     
     fetch(`${popular_movies}`)
         .then(res => res.json())
         .then(popMovies => {
             popMovies.results.map(popmovie => popular_films.appendChild(popular(popmovie)));
         })
+        function popular(popmovie) {
+            const film_pop = document.createElement('DIV');
+            film_pop.classList.add('film_pop')
+            const h4 = document.createElement('H4');
+            const img = document.createElement('IMG');
+            img.src = partimage + popmovie.backdrop_path;
+            h4.innerHTML = popmovie.title;
+            film_pop.appendChild(img);
+            film_pop.appendChild(h4);
+         
+         img.addEventListener('click', () => {
+             popular_films.innerHTML = "";       
+            fetch(`${API_treiler + popmovie.id + Append}`).then(res => res.json())
+                .then(video => {
+                    const movie = document.createElement('div');
+                    movie.classList.add('movie');
+                    const iframe = document.createElement('iframe');
+                    const title = document.createElement('h4');
+                    const movie_info = document.createElement('div');
+                    movie_info.classList.add('info');
+                    const span = document.createElement('p');
+                    const span3 = document.createElement('p');
+                    const span4 = document.createElement('p')
+                    span,span3,span4.classList.add('label');
+                    const span_2 = document.createElement('h4');
+                    span_2.classList.add('value');
+                    const description = document.createElement('div');
+                    description.classList.add('description_movie');
+                    const poster = document.createElement('img');
+                    poster.classList.add('poster');
+                    const p_description = document.createElement('p');
+                    title.innerHTML = video.title;
+                    iframe.src = urlYouTube + video.videos.results[0].key;
+                    span.innerHTML = "rating - " + video.vote_average;
+                    span3.innerHTML = "release_date - " + video.release_date;
+                    span4.innerHTML = "budget - " + video.budget;
+                    span_2.innerHTML = "overview -" + video.title;
+                    poster.src = partimage + video.poster_path;
+                    p_description.innerHTML = video.overview;
+                    content.appendChild(movie);
+                    movie.appendChild(title);
+                    movie.appendChild(iframe);
+                    movie.appendChild(movie_info);
+                    movie_info.appendChild(span);
+                    movie_info.appendChild(span3);
+                    movie_info.appendChild(span4);
+                    movie.appendChild(span_2);
+                    movie.appendChild(description);
+                    description.appendChild(poster);
+                    description.appendChild(p_description);      
+                    return content;
+                })        
+           })   
+            return film_pop;    
+        }
+         
+    fetch(`${popular_movies2}`)
+    .then(res => res.json())
+    .then(popMovies => {
+        popMovies.results.map(popmovie => movies2.appendChild(popular2(popmovie)));
+    })
 
-function popular(popmovie) {
+    fetch(`${popular_movies3} `)
+    .then(res => res.json())
+    .then(popMovies => {
+        popMovies.results.map(popmovie => movies2.appendChild(popular2(popmovie)));
+    }) 
+        
+
+function popular2(popmovie) {
         const film_pop = document.createElement('DIV');
         film_pop.classList.add('film_pop')
         const h4 = document.createElement('H4');
         const img = document.createElement('IMG');
         img.src = partimage + popmovie.backdrop_path;
-        h4.innerHTML =  popmovie.title;
+        h4.innerHTML = popmovie.title;
+        film_pop.appendChild(img);
         film_pop.appendChild(h4);
-        film_pop.appendChild(img);img.addEventListener('click', () => {
-        popular_films.innerHTML = "";
+     
+     img.addEventListener('click', () => {
+         movies2.innerHTML = "";       
         fetch(`${API_treiler + popmovie.id + Append}`).then(res => res.json())
             .then(video => {
-                console.log(video);
                 const movie = document.createElement('div');
                 movie.classList.add('movie');
                 const iframe = document.createElement('iframe');
@@ -81,6 +154,7 @@ function popular(popmovie) {
         const title = input.value;
         container.innerHTML = "";
         popular_films.innerHTML = "";
+        
     fetch(`${API + title + Part}`)
             .then(response => response.json())
         .then(movies => {
@@ -246,3 +320,73 @@ function top_rated (rated_movie) {
 
 
 
+
+/* function slayd_movie(popmovie) {  
+   
+    const itcss__item = document.createElement('DIV');
+    itcss__item.classList.add('itcss__item')
+    const p = document.createElement('p');
+    const img = document.createElement('IMG');
+    img.src = partimage + popmovie.backdrop_path;
+    p.innerHTML =  popmovie.title;
+    itcss__item.appendChild(p);
+    itcss__item.appendChild(img); 
+    
+    img.addEventListener('click', () => {
+
+        itcss__items.innerHTML = "";
+    fetch(`${API_treiler + popmovie.id + Append}`).then(res => res.json())
+        .then(video => {
+            const movie = document.createElement('div');
+            movie.classList.add('movie');
+            const iframe = document.createElement('iframe');
+            const title = document.createElement('h4');
+            const movie_info = document.createElement('div');
+            movie_info.classList.add('info');
+            const span = document.createElement('p');
+            const span3 = document.createElement('p');
+            const span4 = document.createElement('p')
+            span,span3,span4.classList.add('label');
+            const span_2 = document.createElement('h4');
+            span_2.classList.add('value');
+            const description = document.createElement('div');
+            description.classList.add('description_movie');
+            const poster = document.createElement('img');
+            poster.classList.add('poster');
+            const p_description = document.createElement('p');
+            title.innerHTML = video.title;
+            iframe.src = urlYouTube + video.videos.results[0].key;
+            span.innerHTML = "rating - " + video.vote_average;
+            span3.innerHTML = "release_date - " + video.release_date;
+            span4.innerHTML = "budget - " + video.budget;
+            span_2.innerHTML = "overview -" + video.title;
+            poster.src = partimage + video.poster_path;
+            p_description.innerHTML = video.overview;
+            content.appendChild(movie);
+            movie.appendChild(title);
+            movie.appendChild(iframe);
+            movie.appendChild(movie_info);
+            movie_info.appendChild(span);
+            movie_info.appendChild(span3);
+            movie_info.appendChild(span4);
+            movie.appendChild(span_2);
+            movie.appendChild(description);
+            description.appendChild(poster);
+            description.appendChild(p_description);      
+            return content;
+        })      
+   })
+   return itcss__item;     */
+/* } */
+
+
+/* document.addEventListener('DOMContentLoaded', () => {
+    new ItcSimpleSlider('.itcss', {
+       loop: true,
+       autoplay: false,
+       interval: 5000,
+       swipe: false,
+     });
+   }); */
+  
+  
